@@ -1,0 +1,69 @@
+<html>
+  <head>
+    <title>Country Information</title>
+     <script>
+      function displayCountryNameandFlag() {
+        //js logic
+        // used to make api calls
+
+        var http = new XMLHttpRequest(); //initializing XMLHttpRequest;
+
+        http.open("GET", "https://restcountries.com/v3.1/all"); // declaring the http method and url using open().
+
+        http.send(); //sending the http request;
+
+        http.onload = () => {
+          //Status Code
+          // 200, 201, 204 -> Success
+          // 400, 401, 404 -> Client Side
+          // 500, 502, 503 -> Server Side
+
+          if (http.status === 200) {
+            const response = http.response;
+
+            //converting string to object
+            const responseObj = JSON.parse(response); 
+            
+            for(let i=0;i<responseObj.length;i++)
+            {
+              console.log("======= For Loop=========");
+              console.log("Country name : ", responseObj[i].name.common);
+                  console.log("Flag : ",responseObj[i].flag);
+                  console.log("Capital :",responseObj[i].capital);
+            } 
+            for(let key in responseObj)
+            {
+              console.log("======= For in=========");
+             console.log("Country name : ", responseObj[key].name.common);
+                  console.log("Flag : ",responseObj[key].flag);
+                  console.log("Capital :",responseObj[key].capital);
+            } 
+            for(let key of responseObj)
+            {
+              console.log("======= For of=========");
+              console.log("Country name : ",key.name.common);
+                  console.log("Flag : ",key.flag);
+                  console.log("Capital :",key.capital);
+            }
+            
+            responseObj.forEach((key) => {
+                console.log("=======For Each================");
+                  console.log("Country name : ",key.name.common);
+                  console.log("Flag : ",key.flag);
+                  console.log("Capital :",key.capital);
+            }); 
+          } else {
+            console.log("Error");
+          }
+        };
+      }
+      displayCountryNameandFlag();
+      
+    </script> 
+  </head>
+  <body>
+    <h1>Country Information</h1>
+    <div>This is to display Country name capital and flag information</div>
+    <!-- <button onclick="gettingUsers()">Get Users</button> -->
+  </body>
+</html>
